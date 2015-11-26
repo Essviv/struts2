@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="helloworld" extends="struts-default">
+
+        <interceptors>
+            <interceptor-stack name="test">
+                <interceptor-ref name="timer"/>
+                <interceptor-ref name="params"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <action name="hello" class="com.cmcc.syw.struts.HelloWorldAction" method="execute">
+            <!--<result name="success">/views/helloWorld.jsp</result>-->
+            <result name="success" type="freemarker">
+                <param name="location">/ftls/helloWorld.ftl</param>
+            </result>
+            <interceptor-ref name="test"/>
+        </action>
+
+        <action name="upload" class="com.cmcc.syw.struts.FileUploadAction" method="execute">
+            <result name="uploadSuccess">/views/uploadSuccess.jsp</result>
+            <result name="uploadFail">/views/uploadFail.jsp</result>
+            <interceptor-ref name="fileUpload"/>
+        </action>
+    </package>
+</struts>
